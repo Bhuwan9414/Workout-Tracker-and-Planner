@@ -1,6 +1,5 @@
 # Fitness Workout Tracker & Planner
 
-hello
 
 ## Project Overview
 
