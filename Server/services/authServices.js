@@ -1,5 +1,6 @@
 const User = require("../models/User")
 
+//  register a new user
 const registerUser = async function(data){
 
     const existingUser = await User.findOne({
@@ -18,4 +19,19 @@ const registerUser = async function(data){
 
 }
 
-module.exports = {registerUser}
+//  user login
+
+const loginUser = async function(email, password){
+
+    const user = await User.findOne({
+        email
+    }).select("+password")
+
+   if(!user){
+    throw new Error("User does not exist");
+   }
+
+   return {user}
+}
+
+module.exports = {registerUser, loginUser}

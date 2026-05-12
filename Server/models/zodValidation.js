@@ -1,6 +1,6 @@
-const { z } = require("zod");
+const { z, email } = require("zod");
 
-const userValidationSchema = z.object({
+const registerSchema = z.object({
 
     name: z.string().min(2).max(50),
     email: z.string().email(),
@@ -14,4 +14,10 @@ const userValidationSchema = z.object({
     ]),
 })
 
-module.exports = userValidationSchema;
+const loginSchema = z.object({
+
+    email: z.email(),
+    password: z.string().min(6)
+})
+
+module.exports = {registerSchema, loginSchema};
