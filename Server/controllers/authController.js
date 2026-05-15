@@ -10,6 +10,9 @@ const register = async function(req, res){
                 message : "Registration successfull",
                 result
             })
+
+            console.log(result);
+            
         }
         catch(error){
 

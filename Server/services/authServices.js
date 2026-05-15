@@ -1,4 +1,6 @@
+const { email } = require("zod");
 const User = require("../models/User")
+const generateToken = require("../utils/generateToken")
 
 //  register a new user
 const registerUser = async function(data){
@@ -13,8 +15,14 @@ const registerUser = async function(data){
 
     const user = await User.create(data);
 
+    const token = generateToken({
+        email: data.email,
+        password: data.password
+    })
+
     return{
-        user
+        user, 
+        token
     }
 
 }
@@ -35,4 +43,3 @@ const loginUser = async function(email, password){
 }
 
 module.exports = {registerUser, loginUser}
-
