@@ -41,6 +41,8 @@ const login = async function(req, res){
             success: false,
             message: error.message
         });
+        // console.log(error.message);
+        
     }
 
 }
