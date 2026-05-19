@@ -11,7 +11,7 @@ const app = express();
 // app.use is used to run middlewares between request and response
 app.use(express.json());
 
-//  using tthe auth route
+//  using the auth route
 app.use("/api/auth", authRoutes);
 
 module.exports = app;
