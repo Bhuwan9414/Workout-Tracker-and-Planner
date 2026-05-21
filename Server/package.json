@@ -7,6 +7,10 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.2",
     "nodemon": "^3.1.14",
+    "seed": "^0.4.4",
     "zod": "^4.4.3"
+  },
+  "scripts": {
+    "seed": "node seed/seedExercises.js"
   }
 }

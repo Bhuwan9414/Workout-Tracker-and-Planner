@@ -6,6 +6,10 @@ const exerciseSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    musclegroup : String
+    muscleGroup : {
+        type: String,
+    }
 
 })
+
+module.exports = mongoose.model("Exercises", exerciseSchema)
