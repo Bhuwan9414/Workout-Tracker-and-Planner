@@ -14,4 +14,4 @@ const createRoutine = async function(data){
 }
 
 
-module.exports = createRoutine;
+module.exports = {createRoutine};

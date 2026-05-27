@@ -38,4 +38,4 @@ const routineSchema = new mongoose.Schema({
 
 })
 
-module.exports = routineSchema;
+module.exports = mongoose.model("Exercise", routineSchema);
