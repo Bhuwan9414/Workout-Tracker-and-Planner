@@ -1,7 +1,17 @@
 const routine = require("../models/RoutineModel")
 
-const createRoutine = async function(){
+const createRoutine = async function(data){
 
-    const 
+    const newRoutine = await routine.create({
+        
+        title,
+        exercises
+
+    })
+
+    return newRoutine;
 
 }
+
+
+module.exports = createRoutine;
