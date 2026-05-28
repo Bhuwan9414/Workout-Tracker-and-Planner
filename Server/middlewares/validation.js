@@ -21,7 +21,25 @@ const validate = function (schema) {
 
 }
 
+const routineValidation = function (schema){
 
 
+    return (req, res, next) => {
 
-module.exports = validate;
+        const result = schema.safeParse(req.body);
+
+        if(!result.success){
+    
+            return res.status(400).json({
+                message : "invalid input"
+            })
+        }
+    
+            req.validatedData = result.data;
+    
+            next();
+    }
+}
+
+
+module.exports = {validate, routineValidation};

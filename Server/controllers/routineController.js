@@ -8,7 +8,7 @@ const createRoutine = async function (req, res) {
 
     try {
 
-        const result = await routineService.createRoutine(req.body)
+        const result = await routineService.createRoutine(req.validatedData)
 
         res.status(201).json({
 
