@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { tr } = require("zod/v4/locales");
+// const { tr } = require("zod/v4/locales");
 
 const setSchema = new mongoose.Schema({
 
@@ -38,4 +38,4 @@ const routineSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("Exercise", routineSchema);
+module.exports = mongoose.model("Routine", routineSchema);

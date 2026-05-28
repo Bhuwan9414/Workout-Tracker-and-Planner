@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
             "fat_loss"
         ],
         required: true,
-    }, 
+    },
 
 }, {
     timestamps: true

@@ -2,11 +2,10 @@
 
 
 const express = require("express");
-const router = require("./authRoutes");
 
 const routineController = require("../controllers/routineController")
 
-const roputer = express.Router();
+const router = express.Router();
 
 router.post("/createRoutine", routineController)
 

@@ -4,8 +4,8 @@ const createRoutine = async function(data){
 
     const newRoutine = await routine.create({
         
-        title,
-        exercises
+        title : data.title,
+        exercises : data.exercises
 
     })
 
