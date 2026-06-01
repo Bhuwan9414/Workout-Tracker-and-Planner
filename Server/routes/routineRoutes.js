@@ -7,7 +7,7 @@ const routineController = require("../controllers/routineController")
 
 const {routineValidation} = require("../middlewares/validation")
 
-const routineSchema = require("../models/RoutineModel")
+const routineSchema = require("../models/zodValidation")
 
 const router = express.Router();
 
