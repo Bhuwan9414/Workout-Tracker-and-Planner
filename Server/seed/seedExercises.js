@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const exerModel = require("../models/exercisesModel")
 const exercises = require("../models/Exercises");
 
-mongoose.connect("mongodb+srv://sutharbhuwan2_db_user:XIAdcr6EoxhglOfs@cluster1.z0szuix.mongodb.net/exercisesDB")
+// office url
+// mongoose.connect("mongodb+srv://sutharbhuwan2_db_user:XIAdcr6EoxhglOfs@cluster1.z0szuix.mongodb.net/exercisesDB")
+
+// home url
+mongoose.connect("mongodb://localhost:27017/ExercisesDB")
 
 async function seed() {
 
