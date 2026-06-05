@@ -6,7 +6,7 @@ require("dotenv").config();
 // importing the express app from app.js file
 const app = require("./app")
 
-// imoirting the connectDB function from db.js
+// importing the connectDB function from db.js
 const connectDB = require("./config/db")
 
 // calling the connectDB for connecting to database
