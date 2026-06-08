@@ -30,8 +30,12 @@ const registerUser = async function (data) {
 
     // token generation call
     const token = generateToken({
+        id: data._id,
         email: data.email,
     })
+
+    console.log(data._id);
+    
 
     return {
         user,
@@ -44,9 +48,12 @@ const registerUser = async function (data) {
 
 const loginUser = async function (email, password) {
 
+
     const user = await User.findOne({
         email
     }).select("+password")
+
+    
 
     if (!user) {
         throw new Error("User does not exist");
@@ -57,6 +64,7 @@ const loginUser = async function (email, password) {
         password,
         user.password
     )
+
 
     if(!isMatch){
         throw new Error("incorrect password");

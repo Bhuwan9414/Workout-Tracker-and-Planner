@@ -9,9 +9,27 @@ const createRoutine = async function (req, res) {
     try {
 
         // calling the createRoutine function from routine service
-        const result = await routineService.createRoutine(req.validatedData)
+        // const result = await routineService.createRoutine(req.validatedData)
+
+
+        const routineData = {
+            ...req.validatedData,
+            userId: req.user.id
+        };
+
+        console.log("routinecontroller");
+        console.log(routineData);
+
+
+        const result = await routineService.createRoutine(
+            routineData
+        );
+
+        console.log(routineData);
+
 
         // if success then return the success message and the routine
+
         res.status(201).json({
 
             message: "Routine created successfully",

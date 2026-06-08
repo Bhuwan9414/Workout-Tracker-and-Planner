@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken")
 
 require("dotenv").config();
 
-const authMiddleware = function(req,res,next){
+const authMiddleware = function (req, res, next) {
 
     const authheader = req.headers.authorization
 
-    if(!authheader){
+    if (!authheader) {
         return res.status(401).json({
             message: "token missing"
         })
@@ -14,14 +14,24 @@ const authMiddleware = function(req,res,next){
 
     const token = authheader.split(" ")[1];
 
-    try{
+    try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-        req.user = decoded;
+        req.user = decoded.data;
+
+                console.log("decode");
+
+
+        console.log(decoded);
+
+
+
+        console.log(decoded.data.id);
+
 
         next();
     }
-    catch(error){
+    catch (error) {
         return res.status(401).json({
             message: "invlid token"
         })
