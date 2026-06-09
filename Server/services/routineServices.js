@@ -2,12 +2,7 @@ const routine = require("../models/RoutineModel")
 
 const createRoutine = async function(data){
 
-        console.log("routine");
-
-    // console.log(data);
-    
-
-
+       
     const newRoutine = await routine.create({
         
         userId : data.userId,
@@ -15,6 +10,8 @@ const createRoutine = async function(data){
         exercises : data.exercises
 
     })
+
+    
 
     return newRoutine;
 

@@ -17,16 +17,21 @@ const createRoutine = async function (req, res) {
             userId: req.user.id
         };
 
-        console.log("routinecontroller");
-        console.log(routineData);
+
 
 
         const result = await routineService.createRoutine(
             routineData
         );
 
-        console.log(routineData);
+        // console.log("req.user");
+        // console.log(req.user);
 
+        // console.log("req.user.id");
+        // console.log(req.user.id);
+
+        // console.log("routineData");
+        // console.log(routineData);
 
         // if success then return the success message and the routine
 

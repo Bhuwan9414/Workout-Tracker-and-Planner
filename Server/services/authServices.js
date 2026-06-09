@@ -30,11 +30,11 @@ const registerUser = async function (data) {
 
     // token generation call
     const token = generateToken({
-        id: data._id,
-        email: data.email,
+        id: user._id,
+        email: user.email,
     })
 
-    console.log(data._id);
+    // console.log(user._id);
     
 
     return {
