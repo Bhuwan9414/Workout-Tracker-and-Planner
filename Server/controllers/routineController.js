@@ -23,16 +23,7 @@ const createRoutine = async function (req, res) {
         const result = await routineService.createRoutine(
             routineData
         );
-
-        // console.log("req.user");
-        // console.log(req.user);
-
-        // console.log("req.user.id");
-        // console.log(req.user.id);
-
-        // console.log("routineData");
-        // console.log(routineData);
-
+        
         // if success then return the success message and the routine
 
         res.status(201).json({
