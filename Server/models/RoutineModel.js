@@ -14,14 +14,21 @@ const setSchema = new mongoose.Schema({
     }
 })
 
+// exerciseName: {
+// type: String,
+//     required: true
+// },
 
 const exerciseSchema = new mongoose.Schema({
 
-    exerciseName: {
-        type: String,
-        required: true
-    },
+    // type: mongoose.Schema.Types.ObjectId,
 
+    exerciseName: {
+        type : String,
+        ref: "Exercise",
+        required: true
+
+    },
     sets: [setSchema]
 
 })
