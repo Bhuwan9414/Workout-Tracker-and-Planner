@@ -4,4 +4,6 @@ const exerciseController = require("../controllers/exerciseController")
 
 const router = express.Router();
 
-router.get("/api/v1", exerciseController)
+router.get("fetchExercises", exerciseController)
+
+module.exports = router;

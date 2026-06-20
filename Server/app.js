@@ -7,6 +7,9 @@ const authRoutes = require("./routes/authRoutes");
 // importing routine routes
 const routineRoutes = require("./routes/routineRoutes");
 
+// importing the exercise routes
+const exerciseRoutes = require("./routes/exerciseRoutes");
+
 //  creating the express app after this we can use all express methods
 const app = express();
 
@@ -19,5 +22,8 @@ app.use("/api/auth", authRoutes);
 
 // using the routine routes
 app.use("/api/routine", routineRoutes);
+
+// using the exercise routes
+app.use("api/exercise", exerciseRoutes)
 
 module.exports = app;

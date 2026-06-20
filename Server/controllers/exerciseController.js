@@ -1,12 +1,21 @@
-const exercise = require("../models/exercisesModel")
+const exerciseService = require("../services/exerciseServices")
 
-const getAllExercises = async function(){
-
-    const exercises = await exercise.find();
+const exerciseController = async function() {
     
+    try {
+        const exercises = exerciseService.getAllExercises();
 
-    return exercises;
+        res.status(200).json({
+            message : "fetch successfull",
+            exercises
+        })
+    }
 
+    catch(error){
+        res.status(201).json({
+            message : error.message
+        })
+    }
 }
 
-module.exports = {getAllExercises};
+module.exports = exerciseController;
