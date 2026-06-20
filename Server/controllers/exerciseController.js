@@ -1,9 +1,12 @@
 const exerciseService = require("../services/exerciseServices")
 
-const exerciseController = async function() {
+const exerciseController = async function(req, res) {
     
     try {
-        const exercises = exerciseService.getAllExercises();
+        const exercises = await exerciseService();
+
+        console.log("controller");
+        
 
         res.status(200).json({
             message : "fetch successfull",

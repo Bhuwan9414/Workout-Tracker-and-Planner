@@ -24,6 +24,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/routine", routineRoutes);
 
 // using the exercise routes
-app.use("api/exercise", exerciseRoutes)
+console.log("fetching the exercises");
+
+app.use("/api/exercise", exerciseRoutes)
 
 module.exports = app;
