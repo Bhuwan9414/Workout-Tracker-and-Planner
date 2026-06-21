@@ -6,11 +6,15 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.2",
-    "nodemon": "^3.1.14",
     "seed": "^0.4.4",
     "zod": "^4.4.3"
   },
   "scripts": {
-    "seed": "node seed/seedExercises.js"
+    "seed": "node seed/seedExercises.js",
+     "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

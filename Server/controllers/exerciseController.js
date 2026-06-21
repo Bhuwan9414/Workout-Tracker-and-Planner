@@ -5,7 +5,7 @@ const exerciseController = async function(req, res) {
     try {
         const exercises = await exerciseService();
 
-        console.log("controller");
+        // console.log("controller");
         
 
         res.status(200).json({
