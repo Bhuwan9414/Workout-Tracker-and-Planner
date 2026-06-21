@@ -2,7 +2,7 @@
 const express = require("express");
 
 //  importing the routine controller
-const routineController = require("../controllers/routineController")
+const {createRoutine, getAllRoutines} = require("../controllers/routineController")
 
 // importing the validator for routine schema validation
 const {routineValidation} = require("../middlewares/validation")
@@ -17,6 +17,9 @@ const authMiddleware = require("../middlewares/authMiddleware")
 const router = express.Router();
 
 // using the post method
-router.post("/createRoutine",routineValidation(routineSchema), authMiddleware, routineController)
+router.post("/createRoutine",routineValidation(routineSchema), authMiddleware, createRoutine)
+
+// using the get method for fetching routines
+router.get("/getRoutines", authMiddleware, getAllRoutines);
 
 module.exports = router;

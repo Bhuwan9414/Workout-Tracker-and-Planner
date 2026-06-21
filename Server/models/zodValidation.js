@@ -1,4 +1,6 @@
-const { z, email } = require("zod");
+const { z } = require("zod");
+const { Types } = require("mongoose");
+
 
 const registerSchema = z.object({
 
@@ -16,7 +18,7 @@ const registerSchema = z.object({
 
 const loginSchema = z.object({
 
-    email: z.email(),
+    email: z.string().email(),
     password: z.string().min(6)
 })
 
@@ -40,12 +42,16 @@ const setSchema = z.object({
 });
 
 const exerciseSchema = z.object({
-    exerciseName: z
-        .string({
-            required_error: "exerciseName is required"
-        })
-        .min(1, "exerciseName cannot be empty"),
+    // exerciseId: z
+    //     .string({
+    //         required_error: "exerciseName is required"
+    //     })
+    //     .min(1, "exerciseName cannot be empty"),
 
+    exerciseId: z.string().refine(
+        (val) => Types.ObjectId.isValid(val),
+        { message: "Invalid exerciseId" }
+    ),
     sets: z
         .array(setSchema)
         .min(1, "At least one set is required")
@@ -64,4 +70,4 @@ const routineSchema = z.object({
 });
 
 
-module.exports = {registerSchema, loginSchema, routineSchema};
+module.exports = { registerSchema, loginSchema, routineSchema };

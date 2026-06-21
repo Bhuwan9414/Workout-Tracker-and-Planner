@@ -24,7 +24,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/routine", routineRoutes);
 
 // using the exercise routes
-console.log("fetching the exercises");
+// console.log("fetching the exercises");
 
 app.use("/api/exercise", exerciseRoutes)
 

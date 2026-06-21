@@ -44,5 +44,29 @@ const createRoutine = async function (req, res) {
 
 }
 
+const getAllRoutines = async function(req, res){
 
-module.exports = createRoutine;
+    try {
+
+        const userid = req.user.id;
+
+        console.log(userid);
+        
+
+        const routines = await routineService.fetchRoutines(userid);
+
+        res.status(200).json({
+            message : "Routines fetched successfully",
+            routines
+        })
+
+    }
+    catch (error){
+        res.status(201).json({
+            message : error.message
+        })
+    }
+
+}
+
+module.exports = {createRoutine, getAllRoutines};

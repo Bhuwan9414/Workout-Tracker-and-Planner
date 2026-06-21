@@ -23,9 +23,9 @@ const exerciseSchema = new mongoose.Schema({
 
     // type: mongoose.Schema.Types.ObjectId,
 
-    exerciseName: {
-        type : String,
-        ref: "Exercise",
+    exerciseId: {
+        type : mongoose.Schema.Types.ObjectId,
+        ref: "Exercises",
         required: true
 
     },

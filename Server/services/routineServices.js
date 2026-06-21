@@ -1,21 +1,49 @@
 const routine = require("../models/RoutineModel")
+// const exercises = require("../models/exercisesModel")
 
-const createRoutine = async function(data){
+const createRoutine = async function (data) {
 
-       
+    let exercisesList = data.exercises
+
+    const exerciseIds = exercisesList.map(
+        ex => ex.exerciseId
+    );
+
+    console.log(exerciseIds);
+    
+
+    //   const existingExercises = await 
+
     const newRoutine = await routine.create({
-        
-        userId : data.userId,
-        title : data.title,
-        exercises : data.exercises
+
+        userId: data.userId,
+        title: data.title,
+        exercises: data.exercises
 
     })
-
-    
 
     return newRoutine;
 
 }
 
+const fetchRoutines = async function(userId){
 
-module.exports = {createRoutine};
+    // console.log(userId);
+    
+
+    let routines = await routine.find({userId})
+    .populate("exercises.exerciseId")
+    .populate("userId", "name")
+
+
+
+    if(!routines || routines.length === 0){
+        return []
+    }
+
+    return routines;
+
+}
+
+
+module.exports = { createRoutine, fetchRoutines};
