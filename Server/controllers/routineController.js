@@ -96,6 +96,9 @@ const fetchsingleRoutine = async function(req, res){
 
 }
 
+
+
+
 const deleteRoutineController = async function(req, res){
 
     try {
