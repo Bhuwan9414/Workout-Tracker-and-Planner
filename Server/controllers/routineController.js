@@ -96,4 +96,27 @@ const fetchsingleRoutine = async function(req, res){
 
 }
 
-module.exports = {createRoutine, getAllRoutines, fetchsingleRoutine};
+const deleteRoutineController = async function(req, res){
+
+    try {
+
+        const id = req.params.id
+
+        const userid = req.user.id;
+
+        const deletedRoutine = await routineService.deleteRoutine(id, userid);
+
+        res.status(200).json({
+            message : "Routine deleted successfully"
+        })
+
+    }
+    catch(error){
+        res.status(202).json({
+            message : error.message
+        })
+    }
+
+}
+
+module.exports = {createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController};

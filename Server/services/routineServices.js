@@ -10,7 +10,7 @@ const createRoutine = async function (data) {
     );
 
     console.log(exerciseIds);
-    
+
 
     //   const existingExercises = await 
 
@@ -26,18 +26,18 @@ const createRoutine = async function (data) {
 
 }
 
-const fetchRoutines = async function(userId){
+const fetchRoutines = async function (userId) {
 
     // console.log(userId);
-    
-
-    let routines = await routine.find({userId})
-    .populate("exercises.exerciseId")
-    .populate("userId", "name")
 
 
+    let routines = await routine.find({ userId })
+        .populate("exercises.exerciseId")
+        .populate("userId", "name")
 
-    if(!routines || routines.length === 0){
+
+
+    if (!routines || routines.length === 0) {
         return []
     }
 
@@ -47,17 +47,33 @@ const fetchRoutines = async function(userId){
 
 // for fetching single routine
 
-const fetchSingle = async function(id, userId){
+const fetchSingle = async function (id, userId) {
 
-    let fetchedRoutine = await routine.findOne({ _id: id, userId})
+    let fetchedRoutine = await routine.findOne({ _id: id, userId })
+        .populate("exercises.exerciseId")
 
-    if(!fetchedRoutine){
+    if (!fetchedRoutine) {
         return []
-    } 
+    }
 
     return fetchedRoutine
 
 }
 
 
-module.exports = { createRoutine, fetchRoutines, fetchSingle};
+// for deleting a specific routine
+
+const deleteRoutine = async function (id, userId){
+
+  const deleted =  await routine.findOneAndDelete({_id : id, userId})
+
+  if(!deleted){
+    throw new Error("Routine not found")
+  }
+
+  return deleted;
+
+}
+
+
+module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine};
