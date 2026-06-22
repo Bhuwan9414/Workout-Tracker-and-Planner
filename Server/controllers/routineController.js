@@ -50,7 +50,7 @@ const getAllRoutines = async function(req, res){
 
         const userid = req.user.id;
 
-        console.log(userid);
+        // console.log(userid);
         
 
         const routines = await routineService.fetchRoutines(userid);
@@ -69,4 +69,31 @@ const getAllRoutines = async function(req, res){
 
 }
 
-module.exports = {createRoutine, getAllRoutines};
+const fetchsingleRoutine = async function(req, res){
+
+    try {
+
+        const id = req.params.id
+
+        const userid = req.user.id;
+
+        const routine = await routineService.fetchSingle(id, userid)
+
+        res.status(200).json({
+            message : "Routine fetched successfully",
+            routine
+        })
+
+    }
+
+    catch (error){
+
+        res.status(202).json({
+            message : error.message
+        })
+
+    }
+
+}
+
+module.exports = {createRoutine, getAllRoutines, fetchsingleRoutine};

@@ -45,5 +45,19 @@ const fetchRoutines = async function(userId){
 
 }
 
+// for fetching single routine
 
-module.exports = { createRoutine, fetchRoutines};
+const fetchSingle = async function(id, userId){
+
+    let fetchedRoutine = await routine.findOne({ _id: id, userId})
+
+    if(!fetchedRoutine){
+        return []
+    } 
+
+    return fetchedRoutine
+
+}
+
+
+module.exports = { createRoutine, fetchRoutines, fetchSingle};

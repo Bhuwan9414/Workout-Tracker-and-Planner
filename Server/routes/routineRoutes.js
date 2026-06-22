@@ -2,7 +2,7 @@
 const express = require("express");
 
 //  importing the routine controller
-const {createRoutine, getAllRoutines} = require("../controllers/routineController")
+const {createRoutine, getAllRoutines, fetchsingleRoutine} = require("../controllers/routineController")
 
 // importing the validator for routine schema validation
 const {routineValidation} = require("../middlewares/validation")
@@ -21,5 +21,9 @@ router.post("/createRoutine",routineValidation(routineSchema), authMiddleware, c
 
 // using the get method for fetching routines
 router.get("/getRoutines", authMiddleware, getAllRoutines);
+
+// using the single routine fetch api
+
+router.get("/:id", authMiddleware, fetchsingleRoutine);
 
 module.exports = router;
