@@ -130,7 +130,15 @@ const updateRoutineController = async function (req, res) {
 
         const userid = req.user.id;
 
-        const data = req.validatedData
+        const data = req.body;
+
+        // console.log(id);
+        
+        // console.log(userid);
+        
+        // console.log(data);
+        
+
 
         const updatedRoutine = await routineService.updateRoutine(id, userid, data)
 
@@ -150,4 +158,4 @@ const updateRoutineController = async function (req, res) {
     }
 }
 
-module.exports = { createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController };
+module.exports = { createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController , updateRoutineController};

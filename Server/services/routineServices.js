@@ -9,7 +9,7 @@ const createRoutine = async function (data) {
         ex => ex.exerciseId
     );
 
-    console.log(exerciseIds);
+    // console.log(exerciseIds);
 
 
     //   const existingExercises = await 
@@ -63,27 +63,27 @@ const fetchSingle = async function (id, userId) {
 
 // for deleting a specific routine
 
-const deleteRoutine = async function (id, userId){
+const deleteRoutine = async function (id, userId) {
 
-  const deleted =  await routine.findOneAndDelete({_id : id, userId})
+    const deleted = await routine.findOneAndDelete({ _id: id, userId })
 
-  if(!deleted){
-    throw new Error("Routine not found")
-  }
+    if (!deleted) {
+        throw new Error("Routine not found")
+    }
 
-  return deleted;
+    return deleted;
 
 }
 
-const updateRoutine = async function(id, userId, data){
+const updateRoutine = async function (id, userId, data) {
 
-    const updated = await routine.findOneAndUpdate(
-        {_id: id, userId},
-        {$set: data},
-        {new: true}
+    const updated = await routine.findByIdAndUpdate(
+        { _id: id, userId },
+        { $set: data },
+        { new: true }
     )
 
-    if(!updated){
+    if (!updated) {
 
         throw new Error("Routine not found")
 
@@ -94,4 +94,4 @@ const updateRoutine = async function(id, userId, data){
 }
 
 
-module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine, updateRoutine};
+module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine, updateRoutine };

@@ -2,7 +2,7 @@
 const express = require("express");
 
 //  importing the routine controller
-const {createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController} = require("../controllers/routineController")
+const {createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController, updateRoutineController} = require("../controllers/routineController")
 
 // importing the validator for routine schema validation
 const {routineValidation} = require("../middlewares/validation")
@@ -31,8 +31,7 @@ router.get("/:id", authMiddleware, fetchsingleRoutine);
 router.delete("/:id", authMiddleware, deleteRoutineController)
 
 
-router.delete("/:id", authMiddleware, deleteRoutineController)
-
+router.put("/:id", authMiddleware, updateRoutineController)
 
 
 module.exports = router;
