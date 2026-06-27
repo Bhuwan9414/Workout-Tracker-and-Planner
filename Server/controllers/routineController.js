@@ -17,7 +17,7 @@ const createRoutine = async function (req, res) {
             userId: req.user.id
         };
 
- 
+
 
 
         const result = await routineService.createRoutine(
@@ -44,32 +44,32 @@ const createRoutine = async function (req, res) {
 
 }
 
-const getAllRoutines = async function(req, res){
+const getAllRoutines = async function (req, res) {
 
     try {
 
         const userid = req.user.id;
 
         // console.log(userid);
-        
+
 
         const routines = await routineService.fetchRoutines(userid);
 
         res.status(200).json({
-            message : "Routines fetched successfully",
+            message: "Routines fetched successfully",
             routines
         })
 
     }
-    catch (error){
+    catch (error) {
         res.status(201).json({
-            message : error.message
+            message: error.message
         })
     }
 
 }
 
-const fetchsingleRoutine = async function(req, res){
+const fetchsingleRoutine = async function (req, res) {
 
     try {
 
@@ -80,16 +80,16 @@ const fetchsingleRoutine = async function(req, res){
         const routine = await routineService.fetchSingle(id, userid)
 
         res.status(200).json({
-            message : "Routine fetched successfully",
+            message: "Routine fetched successfully",
             routine
         })
 
     }
 
-    catch (error){
+    catch (error) {
 
         res.status(202).json({
-            message : error.message
+            message: error.message
         })
 
     }
@@ -99,7 +99,7 @@ const fetchsingleRoutine = async function(req, res){
 
 
 
-const deleteRoutineController = async function(req, res){
+const deleteRoutineController = async function (req, res) {
 
     try {
 
@@ -110,16 +110,44 @@ const deleteRoutineController = async function(req, res){
         const deletedRoutine = await routineService.deleteRoutine(id, userid);
 
         res.status(200).json({
-            message : "Routine deleted successfully"
+            message: "Routine deleted successfully"
         })
 
     }
-    catch(error){
+    catch (error) {
         res.status(202).json({
-            message : error.message
+            message: error.message
         })
     }
 
 }
 
-module.exports = {createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController};
+const updateRoutineController = async function (req, res) {
+
+    try {
+
+        const id = req.params.id
+
+        const userid = req.user.id;
+
+        const data = req.validatedData
+
+        const updatedRoutine = await routineService.updateRoutine(id, userid, data)
+
+        res.status(200).json({
+            message : "routine updated successfully",
+            updatedRoutine
+        })
+
+    }
+
+    catch(error){
+
+        res.status(202).json({
+            message : error.message
+        })
+
+    }
+}
+
+module.exports = { createRoutine, getAllRoutines, fetchsingleRoutine, deleteRoutineController };

@@ -75,5 +75,23 @@ const deleteRoutine = async function (id, userId){
 
 }
 
+const updateRoutine = async function(id, userId, data){
 
-module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine};
+    const updated = await routine.findOneAndUpdate(
+        {_id: id, userId},
+        {$set: data},
+        {new: true}
+    )
+
+    if(!updated){
+
+        throw new Error("Routine not found")
+
+    }
+
+    return updated;
+
+}
+
+
+module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine, updateRoutine};

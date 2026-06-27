@@ -31,4 +31,8 @@ router.get("/:id", authMiddleware, fetchsingleRoutine);
 router.delete("/:id", authMiddleware, deleteRoutineController)
 
 
+router.delete("/:id", authMiddleware, deleteRoutineController)
+
+
+
 module.exports = router;
