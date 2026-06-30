@@ -1,6 +1,7 @@
 //  get started
 
 const mongoose = require("mongoose");
+const { date } = require("zod");
 
 const setSchema = new mongoose.Schema({
 
@@ -43,7 +44,7 @@ const exercisesSchema = new mongoose.Schema({
 
 const workoutSchema = new mongoose.Schema({
 
-   
+
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
@@ -54,17 +55,33 @@ const workoutSchema = new mongoose.Schema({
         ref: "Routine",
         required: true
     },
-     routineTitle: {
+    routineTitle: {
         type: String,
         required: true
     },
-     status: {
+    status: {
         type: Boolean,
-        required: true
     },
-     startedAt: {
-        type: ,
-        required: true
+    startedAt: {
+        type: Date,
     },
-    
+    completedAt: {
+        type: Date,
+    },
+    duration: {
+        type: Number,
+    },
+
+    exercises: [exercisesSchema],
+
+    totalExercises: {
+        type: Number
+    },
+    totalSets: {
+        type: Number
+    },
+    totalVolume: {
+        type: Number
+    },
+
 })
