@@ -1,8 +1,6 @@
 //  get started
 
 const mongoose = require("mongoose");
-const { date } = require("zod");
-
 const setSchema = new mongoose.Schema({
 
     plannedWeight: {
@@ -15,16 +13,16 @@ const setSchema = new mongoose.Schema({
     },
     actualWeight: {
         type: Number,
-        required: true
+        default: null
     },
     actualReps: {
         type: Number,
-        required: true
+        default: null
     },
     completed: {
         type: Boolean,
-        required: true
-    },
+        default: false
+    }
 })
 
 const exercisesSchema = new mongoose.Schema({
@@ -60,10 +58,13 @@ const workoutSchema = new mongoose.Schema({
         required: true
     },
     status: {
-        type: Boolean,
+        type: String,
+        enum: ["active", "completed", "discarded"],
+        default: "active"
     },
     startedAt: {
         type: Date,
+        required: true
     },
     completedAt: {
         type: Date,
@@ -75,13 +76,19 @@ const workoutSchema = new mongoose.Schema({
     exercises: [exercisesSchema],
 
     totalExercises: {
-        type: Number
+        type: Number,
+        default: 0
     },
     totalSets: {
-        type: Number
+        type: Number,
+        default: 0
     },
     totalVolume: {
-        type: Number
-    },
+        type: Number,
+        default: 0
+    }
 
-})
+}, { timestamps: true })
+
+
+module.exports = mongoose.model("Workout", workoutSchema);
