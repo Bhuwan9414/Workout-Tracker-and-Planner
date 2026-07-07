@@ -84,4 +84,79 @@ const startWorkoutService = async (routineId, userId) => {
 
 };
 
-module.exports = startWorkoutService
+// const updateProgress = async function (workoutId, userId, data) {
+
+//     // find routine by its id
+//     const workout = await workoutModel.findById(workoutId)
+
+//     if (!workout) {
+//         throw new Error("workout does not exist");
+//     }
+
+//     const exercise = 
+
+//     const updatedWorkout = {
+//         workout.actualWeight = data.actualWeight,
+
+//     }
+
+// }
+
+
+
+const updateWorkoutService = async (
+    workoutId,
+    userId,
+    setId,
+    actualWeight,
+    actualReps,
+    completed
+) => {
+
+    // Find the workout
+    const workout = await workoutModel.findById(workoutId);
+
+    if (!workout) {
+        throw new Error("Workout not found");
+    }
+
+    // Check ownership
+    if (workout.userId.toString() !== userId) {
+        throw new Error("Unauthorized");
+    }
+
+    // Workout should be active
+    if (workout.status !== "active") {
+        throw new Error("Workout is already completed or discarded");
+    }
+
+    let setFound = false;
+
+    // Find the set and update it
+    workout.exercises.forEach((exercise) => {
+
+        exercise.sets.forEach((set) => {
+
+            if (set._id.toString() === setId) {
+
+                set.actualWeight = actualWeight;
+                set.actualReps = actualReps;
+                set.completed = completed;
+
+                setFound = true;
+            }
+
+        });
+
+    });
+
+    if (!setFound) {
+        throw new Error("Set not found");
+    }
+
+    await workout.save();
+
+    return workout;
+};
+
+module.exports = {startWorkoutService, updateWorkoutService}
