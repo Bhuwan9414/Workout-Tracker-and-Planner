@@ -19,7 +19,7 @@ const authMiddleware = function (req, res, next) {
 
         req.user = decoded.data;
 
-        console.log(decoded.data);
+        // console.log(decoded.data);
         
 
 

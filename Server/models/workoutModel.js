@@ -51,7 +51,7 @@ const workoutSchema = new mongoose.Schema({
     routineId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Routine",
-        required: trueroutine
+        required: true
     },
     routineTitle: {
         type: String,

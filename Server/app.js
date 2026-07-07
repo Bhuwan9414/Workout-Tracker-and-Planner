@@ -10,6 +10,9 @@ const routineRoutes = require("./routes/routineRoutes");
 // importing the exercise routes
 const exerciseRoutes = require("./routes/exerciseRoutes");
 
+// importing the workout routes
+const workoutRoutes = require("./routes/workoutRoutes");
+
 //  creating the express app after this we can use all express methods
 const app = express();
 
@@ -26,6 +29,10 @@ app.use("/api/routine", routineRoutes);
 // using the exercise routes
 // console.log("fetching the exercises");
 
-app.use("/api/exercise", exerciseRoutes)
+app.use("/api/exercise", exerciseRoutes);
+
+// using the workout routes
+
+app.use("/api/workout", workoutRoutes);
 
 module.exports = app;

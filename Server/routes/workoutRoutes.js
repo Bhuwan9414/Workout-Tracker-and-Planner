@@ -6,4 +6,9 @@ const express = require("express");
 
 const router = express.Router();
 
-router.post("/startWorkout",)
+console.log("workout route is up");
+
+
+router.post("/startWorkout",authMiddleware, startWorkoutController);
+
+module.exports = router;

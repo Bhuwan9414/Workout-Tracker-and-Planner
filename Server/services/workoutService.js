@@ -4,7 +4,8 @@ const routineModel = require("../models/RoutineModel");
 const startWorkoutService = async (routineId, userId) => {
 
     // Find the routine
-    const routine = await routineModel.findById(routineId);
+    const routine = await routineModel.findById(routineId)
+        .populate("exercises.exerciseId", "name");
 
     if (!routine) {
         throw new Error("Routine not found");
@@ -28,7 +29,7 @@ const startWorkoutService = async (routineId, userId) => {
         return {
 
             exerciseId: exercise.exerciseId,
-            exerciseName: exercise.exerciseName,
+            exerciseName: exercise.exerciseId.name,
 
             sets: exercise.sets.map((set) => {
 
@@ -59,6 +60,8 @@ const startWorkoutService = async (routineId, userId) => {
         status: "active",
 
         startedAt: new Date(),
+
+
         completedAt: null,
         duration: null,
 
@@ -69,15 +72,16 @@ const startWorkoutService = async (routineId, userId) => {
         totalVolume: 0
     };
 
+    console.log(workout.startedAt);
+
+
     // Save workout
     const newWorkout = await workoutModel.create(workout);
 
     return newWorkout;
 
-    console.log(newWorkout);
-    
+    // console.log(newWorkout);
+
 };
 
-module.exports = {
-    startWorkoutService
-};
+module.exports = startWorkoutService
