@@ -84,24 +84,6 @@ const startWorkoutService = async (routineId, userId) => {
 
 };
 
-// const updateProgress = async function (workoutId, userId, data) {
-
-//     // find routine by its id
-//     const workout = await workoutModel.findById(workoutId)
-
-//     if (!workout) {
-//         throw new Error("workout does not exist");
-//     }
-
-//     const exercise = 
-
-//     const updatedWorkout = {
-//         workout.actualWeight = data.actualWeight,
-
-//     }
-
-// }
-
 
 
 const updateWorkoutService = async (
@@ -157,6 +139,9 @@ const updateWorkoutService = async (
     await workout.save();
 
     return workout;
+
+    console.log("service running successfully");
+    
 };
 
-module.exports = {startWorkoutService, updateWorkoutService}
+module.exports = { startWorkoutService, updateWorkoutService }

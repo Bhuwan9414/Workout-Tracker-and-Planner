@@ -29,7 +29,7 @@ const startWorkoutController = async function (req, res) {
 }
 
 
-const { updateWorkoutService } = require("../services/workoutService");
+// const { updateWorkoutService } = require("../services/workoutService");
 
 const updateWorkoutController = async (req, res) => {
 
