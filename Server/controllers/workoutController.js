@@ -1,4 +1,4 @@
-const { startWorkoutService, updateWorkoutService } = require("../services/workoutService");
+const { startWorkoutService, updateWorkoutService, completeWorkout } = require("../services/workoutService");
 
 const startWorkoutController = async function (req, res) {
 
@@ -71,4 +71,31 @@ const updateWorkoutController = async (req, res) => {
 };
 
 
-module.exports = { startWorkoutController, updateWorkoutController }
+const completeWorkoutController = async function (req, res) {
+
+    try {
+
+        const { workoutId } = req.params;
+        const userId = req.user.id;
+
+
+        const completedWorkout = await completeWorkout(workoutId, userId)
+        return res.status(200).json({
+            message: "Workout completed",
+            workout: completedWorkout
+        });
+
+
+    }
+
+    catch (error) {
+
+        return res.status(400).json({
+            message: error.message
+        });
+
+
+}
+
+
+module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController}

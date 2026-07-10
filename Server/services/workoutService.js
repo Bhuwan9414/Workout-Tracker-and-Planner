@@ -1,6 +1,8 @@
 const workoutModel = require("../models/workoutModel");
 const routineModel = require("../models/RoutineModel");
 
+//  start workout service
+
 const startWorkoutService = async (routineId, userId) => {
 
     // Find the routine
@@ -85,6 +87,7 @@ const startWorkoutService = async (routineId, userId) => {
 };
 
 
+//  update workout service 
 
 const updateWorkoutService = async (
     workoutId,
@@ -144,4 +147,35 @@ const updateWorkoutService = async (
     
 };
 
-module.exports = { startWorkoutService, updateWorkoutService }
+const completeWorkout = async function(workoutId,userId,){
+
+    const workout = await workoutModel.findById(workoutId)
+
+    if(!workout){
+        throw new Error("workout not found");
+    }
+
+     // Check ownership
+    if (workout.userId.toString() !== userId) {
+        throw new Error("Unauthorized");
+    }
+
+    // Workout should be active
+    if (workout.status !== "active") {
+        throw new Error("Workout is already completed or discarded");
+    }
+
+
+    workout.completedAt = new Date()
+    workout.duration = workout.completedAt - workout.startedAt
+    workout.status = "completed"
+
+
+        await workout.save();
+
+
+
+}
+
+
+module.exports = { startWorkoutService, updateWorkoutService, completeWorkout}
