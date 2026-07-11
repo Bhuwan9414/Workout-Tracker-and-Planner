@@ -95,7 +95,9 @@ const completeWorkoutController = async function (req, res) {
         });
 
 
+    }
+
 }
 
 
-module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController}
+module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController }

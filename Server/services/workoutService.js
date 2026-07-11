@@ -143,19 +143,19 @@ const updateWorkoutService = async (
 
     return workout;
 
-    console.log("service running successfully");
-    
+
+
 };
 
-const completeWorkout = async function(workoutId,userId,){
+const completeWorkout = async function (workoutId, userId,) {
 
     const workout = await workoutModel.findById(workoutId)
 
-    if(!workout){
+    if (!workout) {
         throw new Error("workout not found");
     }
 
-     // Check ownership
+    // Check ownership
     if (workout.userId.toString() !== userId) {
         throw new Error("Unauthorized");
     }
@@ -167,15 +167,31 @@ const completeWorkout = async function(workoutId,userId,){
 
 
     workout.completedAt = new Date()
-    workout.duration = workout.completedAt - workout.startedAt
+
+    workout.duration = Math.floor(
+        (workout.completedAt - workout.startedAt) / 1000
+    );
+
     workout.status = "completed"
 
 
-        await workout.save();
+    await workout.save();
 
+    return workout;
 
+}
+
+const fetchWorkoutService = async function(userId){
+
+    const workouts = await workoutModel.find({userId})
+
+    if(!workouts || workouts.length === 0){
+        return [];
+    }
+
+    return workouts;
 
 }
 
 
-module.exports = { startWorkoutService, updateWorkoutService, completeWorkout}
+module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService}

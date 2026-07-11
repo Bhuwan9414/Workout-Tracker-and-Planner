@@ -1,4 +1,4 @@
-const {startWorkoutController, updateWorkoutController} = require("../controllers/workoutController");
+const {startWorkoutController, updateWorkoutController, completeWorkoutController} = require("../controllers/workoutController");
 
 const authMiddleware = require("../middlewares/authMiddleware")
 
@@ -12,5 +12,7 @@ console.log("workout route is up");
 router.post("/startWorkout",authMiddleware, startWorkoutController);
 
 router.patch("/:workoutId", authMiddleware, updateWorkoutController);
+
+router.patch("/:workoutId/complete", authMiddleware, completeWorkoutController);
 
 module.exports = router;
