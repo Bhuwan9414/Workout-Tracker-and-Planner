@@ -1,4 +1,4 @@
-const {startWorkoutController, updateWorkoutController, completeWorkoutController} = require("../controllers/workoutController");
+const {startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController} = require("../controllers/workoutController");
 
 const authMiddleware = require("../middlewares/authMiddleware")
 
@@ -14,5 +14,7 @@ router.post("/startWorkout",authMiddleware, startWorkoutController);
 router.patch("/:workoutId", authMiddleware, updateWorkoutController);
 
 router.patch("/:workoutId/complete", authMiddleware, completeWorkoutController);
+
+router.get("/fetchWorkouts", authMiddleware, fetchWorkoutController);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const { startWorkoutService, updateWorkoutService, completeWorkout } = require("../services/workoutService");
+const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService} = require("../services/workoutService");
 
 const startWorkoutController = async function (req, res) {
 
@@ -99,5 +99,31 @@ const completeWorkoutController = async function (req, res) {
 
 }
 
+const fetchWorkoutController = async function(req, res){
 
-module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController }
+    try {
+
+        const userId = req.user.id;
+
+        const workouts = await fetchWorkoutService(userId);
+
+        return res.status(201).json({
+
+            message : "workouts fetched successfully",
+            workouts
+
+        })
+    }
+
+    catch(error){
+
+        res.status(400).json({
+            error : error.message
+        });
+
+    }
+
+}
+
+
+module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController}
