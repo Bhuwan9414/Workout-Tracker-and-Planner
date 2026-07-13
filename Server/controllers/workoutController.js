@@ -1,9 +1,12 @@
+// importing the workout services
 const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService} = require("../services/workoutService");
+
 
 const startWorkoutController = async function (req, res) {
 
     try {
 
+        
         const routineId = req.body.routineId;
         const userId = req.user.id
 
