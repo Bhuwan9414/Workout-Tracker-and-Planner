@@ -181,11 +181,11 @@ const completeWorkout = async function (workoutId, userId,) {
 
 }
 
-const fetchWorkoutService = async function(userId){
+const fetchWorkoutService = async function (userId) {
 
-    const workouts = await workoutModel.find({userId})
+    const workouts = await workoutModel.find({ userId })
 
-    if(!workouts || workouts.length === 0){
+    if (!workouts || workouts.length === 0) {
         return [];
     }
 
@@ -194,4 +194,6 @@ const fetchWorkoutService = async function(userId){
 }
 
 
-module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService}
+
+
+module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService }
