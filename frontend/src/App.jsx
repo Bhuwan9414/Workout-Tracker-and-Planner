@@ -1,5 +1,5 @@
 function App() {
-  return <h1>Workout Tracker</h1>;
+  return <h1>Lets get started with the Workout Tracker</h1>;
 }
 
 
