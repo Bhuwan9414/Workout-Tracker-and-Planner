@@ -130,3 +130,6 @@ const fetchWorkoutController = async function(req, res){
 
 
 module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController}
+
+
+// null
