@@ -1,6 +1,8 @@
+import AppRoutes from "./routes/AppRoutes";
+
 function App() {
-  return <h1>Lets get started with the Workout Tracker</h1>;
+  return <AppRoutes />;
 }
 
-
 export default App;
+
