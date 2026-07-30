@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../utils/validationSchema";
+import { loginUser } from "../services/authService";
 
 const Login = () => {
   const {
@@ -15,9 +16,21 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = async (data) => {
+
+    try {
+
+        const response = await loginUser(data);
+
+        console.log(response);
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-950">

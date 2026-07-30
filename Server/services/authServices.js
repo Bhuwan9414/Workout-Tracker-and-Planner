@@ -70,6 +70,11 @@ const loginUser = async function (email, password) {
         throw new Error("incorrect password");
     }
 
+     const token = generateToken({
+        id: user._id,
+        email: user.email,
+    });
+
     return { user }
 }
 
