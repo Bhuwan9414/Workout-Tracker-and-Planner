@@ -53,7 +53,7 @@ const loginUser = async function (email, password) {
         email
     }).select("+password")
 
-    
+
 
     if (!user) {
         throw new Error("User does not exist");
@@ -70,12 +70,18 @@ const loginUser = async function (email, password) {
         throw new Error("incorrect password");
     }
 
+    
+
      const token = generateToken({
         id: user._id,
         email: user.email,
     });
 
-    return { user }
+        // Remove password before sending response
+    user.password = undefined;
+
+
+    return { user, token }
 }
 
 module.exports = { registerUser, loginUser }

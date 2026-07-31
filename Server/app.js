@@ -13,8 +13,12 @@ const exerciseRoutes = require("./routes/exerciseRoutes");
 // importing the workout routes
 const workoutRoutes = require("./routes/workoutRoutes");
 
+const cors = require("cors");
+
 //  creating the express app after this we can use all express methods
 const app = express();
+
+app.use(cors());
 
 // parses the incoming json in req.body to js object
 // app.use is used to run middlewares between request and response

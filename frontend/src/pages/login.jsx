@@ -2,8 +2,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../utils/validationSchema";
 import { loginUser } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+
+  const { login, isAuthenticated } = useAuth();
+
+  console.log(isAuthenticated);
+
   const {
     register,
     handleSubmit,
@@ -17,20 +23,17 @@ const Login = () => {
   });
 
   const onSubmit = async (data) => {
-
     try {
+      const response = await loginUser(data);
 
-        const response = await loginUser(data);
+      login(response.data.data.token);
 
-        console.log(response);
+      console.log(response);
 
     } catch (error) {
-
-        console.log(error);
-
+      console.log(error.response?.data);
     }
-
-}
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-950">
@@ -44,7 +47,9 @@ const Login = () => {
         </p>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
           {/* Email */}
+
           <div>
             <label className="mb-2 block text-sm text-slate-300">
               Email
@@ -65,6 +70,7 @@ const Login = () => {
           </div>
 
           {/* Password */}
+
           <div>
             <label className="mb-2 block text-sm text-slate-300">
               Password
@@ -90,6 +96,7 @@ const Login = () => {
           >
             Login
           </button>
+
         </form>
       </div>
     </div>
