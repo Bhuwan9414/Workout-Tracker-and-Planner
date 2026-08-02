@@ -3,115 +3,134 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../utils/validationSchema";
 import { loginUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
-    const { login, isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: "",
-            password: "",
-        },
-    });
+  const { login, isAuthenticated, user } = useAuth();
 
-    const onSubmit = async (data) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-        try {
+  const onSubmit = async (data) => {
 
-            const response = await loginUser(data);
+    try {
 
-            login(
-                response.data.token,
-                response.data.user
-            );
+      const response = await loginUser(data);
 
-            console.log(response);
+      login(
+        response.data.token,
+        response.data.user
+      );
 
-        } catch (error) {
+      navigate("/dashboard");
 
-            console.log(error.response?.data);
+      // console.log(response);
 
-        }
+    } catch (error) {
 
-    };
+      console.log(error.response?.data);
 
-    return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-950">
-            <div className="w-full max-w-md rounded-xl bg-slate-900 p-8 shadow-xl">
+    }
 
-                <h1 className="mb-2 text-3xl font-bold text-white">
-                    Welcome Back
-                </h1>
+  };
 
-                <p className="mb-8 text-slate-400">
-                    Sign in to continue your fitness journey.
-                </p>
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-slate-950">
+      <div className="w-full max-w-md rounded-xl bg-slate-900 p-8 shadow-xl">
 
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-5"
-                >
+        <h1 className="mb-2 text-3xl font-bold text-white">
+          Welcome Back
+        </h1>
 
-                    <div>
+        <p className="mb-8 text-slate-400">
+          Sign in to continue your fitness journey.
+        </p>
 
-                        <label className="mb-2 block text-sm text-slate-300">
-                            Email
-                        </label>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5"
+        >
 
-                        <input
-                            type="email"
-                            placeholder="Enter your email"
-                            {...register("email")}
-                            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
-                        />
+          <div>
 
-                        {errors.email && (
-                            <p className="mt-1 text-sm text-red-500">
-                                {errors.email.message}
-                            </p>
-                        )}
+            <label className="mb-2 block text-sm text-slate-300">
+              Email
+            </label>
 
-                    </div>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              {...register("email")}
+              className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
+            />
 
-                    <div>
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.email.message}
+              </p>
+            )}
 
-                        <label className="mb-2 block text-sm text-slate-300">
-                            Password
-                        </label>
+          </div>
 
-                        <input
-                            type="password"
-                            placeholder="Enter your password"
-                            {...register("password")}
-                            className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
-                        />
+          <div>
 
-                        {errors.password && (
-                            <p className="mt-1 text-sm text-red-500">
-                                {errors.password.message}
-                            </p>
-                        )}
+            <label className="mb-2 block text-sm text-slate-300">
+              Password
+            </label>
 
-                    </div>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              {...register("password")}
+              className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
+            />
 
-                    <button
-                        type="submit"
-                        className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
-                    >
-                        Login
-                    </button>
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.password.message}
+              </p>
+            )}
 
-                </form>
+          </div>
 
-            </div>
-        </div>
-    );
+          <button
+            type="submit"
+            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+          >
+            Login
+          </button>
+
+          <p className="text-center text-slate-400">
+
+            Don't have an account?
+
+            <Link
+              to="/register"
+              className="ml-2 text-blue-500"
+            >
+              Register
+            </Link>
+
+          </p>
+
+        </form>
+
+      </div>
+    </div>
+  );
 };
 
 export default Login;
