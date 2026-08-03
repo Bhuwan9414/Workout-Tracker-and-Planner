@@ -10,9 +10,13 @@ export const getRoutineById = async (routineId) => {
     return await api.get(`/routine/${routineId}`);
 };
 
-// Create routine
 export const createRoutine = async (data) => {
-    return await api.post("/routine/createRoutine", data);
+    const response = await api.post(
+        "/routine/createRoutine",
+        data
+    );
+
+    return response;
 };
 
 // Update routine
