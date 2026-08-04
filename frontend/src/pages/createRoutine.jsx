@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchExercises } from "../services/exerciseService";
 
-import { createRoutine } from "../services/routineService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+
+import {
+    createRoutine,
+    getRoutineById,
+    updateRoutine,
+} from "../services/routineService";
 
 const CreateRoutine = () => {
 
@@ -14,29 +19,89 @@ const CreateRoutine = () => {
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    // useEffect(() => {
+    //     loadExercises();
+    // }, []);
 
     useEffect(() => {
-        loadExercises();
-    }, []);
+
+        const initialize = async () => {
+
+            await loadExercises();
+
+            if (id) {
+                await loadRoutine();
+            }
+
+        };
+
+        initialize();
+
+    }, [id]);
+
 
     const loadExercises = async () => {
+
         try {
 
             const response = await fetchExercises();
 
-            console.log(response.data);
-
             setExercises(response.data.exercises);
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.log(error.response?.data);
 
-        } finally {
+        }
+
+        finally {
 
             setLoading(false);
 
         }
+
+    };
+
+    const loadRoutine = async () => {
+
+        try {
+
+            const response = await getRoutineById(id);
+
+            const routine = response.data.routine;
+
+            setTitle(routine.title);
+
+            const formattedExercises = routine.exercises.map((exercise) => ({
+
+                exerciseId: exercise.exerciseId._id,
+
+                exerciseName: exercise.exerciseId.name,
+
+                sets: exercise.sets.map((set) => ({
+
+                    targetWeight: set.targetWeight,
+
+                    targetReps: set.targetReps,
+
+                })),
+
+            }));
+
+            setSelectedExercises(formattedExercises);
+
+        }
+
+        catch (error) {
+
+            console.log(error.response?.data);
+
+        }
+
     };
 
     const filteredExercises = exercises.filter((exercise) =>
@@ -168,44 +233,62 @@ const CreateRoutine = () => {
 
     };
 
-   const handleSaveRoutine = async () => {
+    const handleSaveRoutine = async () => {
 
-    console.log("Save button clicked");
+        console.log("Save button clicked");
 
-    if (!validateRoutine()) return;
+        if (!validateRoutine()) return;
 
-    const payload = {
-        title,
-        exercises: selectedExercises.map((exercise) => ({
-            exerciseId: exercise.exerciseId,
-            sets: exercise.sets,
-        })),
+        const payload = {
+            title,
+            exercises: selectedExercises.map((exercise) => ({
+                exerciseId: exercise.exerciseId,
+                sets: exercise.sets,
+            })),
+        };
+
+        console.log(payload);
+
+        try {
+
+            let response;
+
+            if (id) {
+
+                response = await updateRoutine(
+                    id,
+                    payload
+                );
+
+                toast.success("Routine updated successfully");
+
+            }
+            else {
+
+                response = await createRoutine(
+                    payload
+                );
+
+                toast.success("Routine created successfully");
+
+            }
+
+            // console.log(response.data);
+
+            navigate("/routines");
+
+        } catch (error) {
+
+            console.log(error.response?.data);
+
+            toast.error(
+                error.response?.data?.message ||
+                "Failed to create routine"
+            );
+
+        }
+
     };
-
-    console.log(payload);
-
-    try {
-
-        const response = await createRoutine(payload);
-
-        console.log(response.data);
-
-        toast.success("Routine created successfully");
-
-        navigate("/routines");
-
-    } catch (error) {
-
-        console.log(error.response?.data);
-
-        toast.error(
-            error.response?.data?.message ||
-            "Failed to create routine"
-        );
-
-    }
-
-};
 
 
     return (
@@ -468,7 +551,7 @@ const CreateRoutine = () => {
                     onClick={handleSaveRoutine}
                     className="w-full rounded-lg bg-blue-600 py-3 text-lg font-semibold text-white hover:bg-blue-700"
                 >
-                    Save Routine
+                    {id ? "Update Routine" : "Save Routine"}
                 </button>
 
             </div>

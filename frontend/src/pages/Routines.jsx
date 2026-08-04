@@ -18,6 +18,16 @@ const Routines = () => {
 
     }, []);
 
+    const handleDeleteRoutine = (routineId) => {
+
+        setRoutines((prev) =>
+            prev.filter(
+                (routine) => routine._id !== routineId
+            )
+        );
+
+    };
+
     const fetchRoutines = async () => {
 
         try {
@@ -55,7 +65,7 @@ const Routines = () => {
     }
 
     return (
-        
+
 
         <div className="min-h-screen bg-slate-950 p-10">
 
@@ -85,10 +95,11 @@ const Routines = () => {
                 <div className="grid gap-6 md:grid-cols-2">
 
                     {routines.map((routine) => (
-
                         <RoutineCard
                             key={routine._id}
                             routine={routine}
+                            onDelete={handleDeleteRoutine}
+                            onEdit={(id) => navigate(`/edit-routine/${id}`)}
                         />
 
                     ))}

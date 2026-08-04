@@ -41,6 +41,15 @@ const AppRoutes = () => {
           }
         />
 
+        <Route
+          path="/edit-routine/:id"
+          element={
+            <ProtectedRoute>
+              <CreateRoutine />
+            </ProtectedRoute>
+          }
+        />
+
 
       </Routes>
     </BrowserRouter>
