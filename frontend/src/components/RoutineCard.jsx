@@ -1,7 +1,14 @@
 import { deleteRoutine } from "../services/routineService";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { startWorkout } from "../services/workoutService";
+
+
+
 
 const RoutineCard = ({ routine, onDelete, onEdit }) => {
+
+    const navigate = useNavigate();
 
     const handleDelete = async () => {
 
@@ -31,6 +38,41 @@ const RoutineCard = ({ routine, onDelete, onEdit }) => {
 
     };
 
+    const handleStartWorkout = async () => {
+
+        try {
+
+            const response = await startWorkout(
+                routine._id
+            );
+
+            console.log(response.data);
+
+            toast.success("Workout Started");
+
+            navigate(
+                `/active-workout/${response.data.workout._id}`,
+                {
+                    state: {
+                        workout: response.data.workout,
+                    },
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.log(error.response?.data);
+
+            toast.error(
+                "Unable to start workout"
+            );
+
+        }
+
+    };
+
     return (
 
         <div className="rounded-xl bg-slate-900 p-6 shadow">
@@ -46,6 +88,7 @@ const RoutineCard = ({ routine, onDelete, onEdit }) => {
             <div className="mt-5 flex gap-3">
 
                 <button
+                    onClick={handleStartWorkout}
                     className="rounded-lg bg-green-600 px-4 py-2 text-white"
                 >
                     Start Workout

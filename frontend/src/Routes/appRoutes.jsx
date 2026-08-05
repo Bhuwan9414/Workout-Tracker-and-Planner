@@ -6,6 +6,7 @@ import Dashboard from "../pages/dashboard";
 import Routines from "../pages/Routines";
 import ProtectedRoute from "./ProtectedRoute";
 import CreateRoutine from "../pages/createRoutine";
+import ActiveWorkout from "../pages/ActiveWorkout";
 
 const AppRoutes = () => {
   return (
@@ -46,6 +47,15 @@ const AppRoutes = () => {
           element={
             <ProtectedRoute>
               <CreateRoutine />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/active-workout/:id"
+          element={
+            <ProtectedRoute>
+              <ActiveWorkout />
             </ProtectedRoute>
           }
         />
