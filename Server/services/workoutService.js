@@ -206,6 +206,4 @@ const fetchWorkoutService = async function (userId) {
 }
 
 
-
-
 module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService }
