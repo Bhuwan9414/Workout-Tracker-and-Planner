@@ -172,8 +172,20 @@ const completeWorkout = async function (workoutId, userId,) {
         (workout.completedAt - workout.startedAt) / 1000
     );
 
-    workout.status = "completed"
+    const totalVolume = workout.exercises.reduce((exerciseTotal, exercise) => {
+        return (
+            exerciseTotal +
+            exercise.sets.reduce((setTotal, set) => {
+                if (!set.completed) return setTotal;
 
+                return setTotal + (set.actualWeight * set.actualReps);
+            }, 0)
+        );
+    }, 0);
+
+    workout.totalVolume = totalVolume;
+
+    workout.status = "completed"
 
     await workout.save();
 
