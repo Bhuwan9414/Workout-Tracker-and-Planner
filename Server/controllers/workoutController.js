@@ -1,5 +1,5 @@
 // importing the workout services
-const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService} = require("../services/workoutService");
+const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout} = require("../services/workoutService");
 
 
 const startWorkoutController = async function (req, res) {
@@ -127,6 +127,20 @@ const fetchWorkoutController = async function(req, res){
     }
 
 }
+
+// const fetchSingleWorkoutController = async function(req, res){
+
+//     try{
+
+//         const userId = req.user.id;
+//         const workoutId = req
+
+//         // const singleWorkout = await fetchSingleWorkout()
+
+//     }
+
+
+// }
 
 
 module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController}

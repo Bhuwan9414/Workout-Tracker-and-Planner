@@ -205,5 +205,17 @@ const fetchWorkoutService = async function (userId) {
 
 }
 
+const fetchSingleWorkout = async function(userId, workoutId){
 
-module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService }
+    const workout = await workoutModel.findOne({workoutId})
+
+    if(!workout){
+        return [];
+    }
+
+    return workout;
+
+}
+
+
+module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout}
