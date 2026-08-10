@@ -213,7 +213,7 @@ const fetchSingleWorkout = async function(userId, workoutId){
     
 
     if(!workout){
-        return [];
+            throw new Error("Workout not found");
     }
 
     return workout;

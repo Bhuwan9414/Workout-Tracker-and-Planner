@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchWorkouts } from "../services/workoutService";
+import { useNavigate } from "react-router-dom";
 
 const Workouts = () => {
 
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadWorkouts();
@@ -186,6 +189,15 @@ const Workouts = () => {
                                             </div>
 
                                         </div>
+
+                                        {/* View Details Button */}
+
+                                        <button
+                                            onClick={() => navigate(`/workouts/${workout._id}`)}
+                                            className="mt-6 rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700"
+                                        >
+                                            View Details
+                                        </button>
 
                                     </div>
 

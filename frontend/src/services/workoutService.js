@@ -35,3 +35,11 @@ export const fetchWorkouts = async () => {
     );
 
 };
+
+export const fetchSingleWorkout = async (workoutId) => {
+
+    return await api.get(
+        `/workout/${workoutId}`
+    );
+
+};
