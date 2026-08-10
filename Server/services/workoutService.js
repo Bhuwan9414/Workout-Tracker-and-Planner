@@ -218,4 +218,6 @@ const fetchSingleWorkout = async function(userId, workoutId){
 }
 
 
+
+
 module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout}
