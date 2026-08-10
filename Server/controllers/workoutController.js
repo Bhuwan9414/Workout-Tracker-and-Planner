@@ -128,22 +128,29 @@ const fetchWorkoutController = async function(req, res){
 
 }
 
-// const fetchSingleWorkoutController = async function(req, res){
+const fetchSingleWorkoutController = async function(req, res){
 
-//     try{
+    try{
 
-//         const userId = req.user.id;
-//         const workoutId = req
+        const userId = req.user.id;
+        const workoutId = req.params.id;
 
-//         // const singleWorkout = await fetchSingleWorkout()
+        const singleWorkout = await fetchSingleWorkout(userId, workoutId)
 
-//     }
+          res.status(200).json({
+            message: "Workout fetched successfully",
+            singleWorkout
+        })
+    }
+    catch(error){
+
+        res.status(400).json({
+            message:error.message
+        })
+
+    }
+
+}
 
 
-// }
-
-
-module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController}
-
-
-// null
+module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController, fetchSingleWorkoutController}
