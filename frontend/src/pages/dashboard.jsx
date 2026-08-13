@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 import { getAllRoutines } from "../services/routineService";
 import { fetchWorkouts } from "../services/workoutService";
 
