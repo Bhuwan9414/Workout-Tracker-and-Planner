@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchSingleWorkout } from "../services/workoutService";
+import Navbar from "../components/Navbar";
 
 const WorkoutDetails = () => {
 
@@ -62,105 +63,109 @@ const WorkoutDetails = () => {
 
     return (
 
-        <div className="min-h-screen bg-slate-950 p-10">
+        <>
+            <Navbar />
 
-            <h1 className="text-4xl font-bold text-white">
+            <div className="min-h-screen bg-slate-950 p-10">
 
-                {workout.routineTitle}
+                <h1 className="text-4xl font-bold text-white">
 
-            </h1>
+                    {workout.routineTitle}
 
-            <p className="mt-2 text-green-400 capitalize">
+                </h1>
 
-                {workout.status}
+                <p className="mt-2 text-green-400 capitalize">
 
-            </p>
+                    {workout.status}
 
-            <div className="mt-10 space-y-8">
+                </p>
 
-                {workout.exercises.map((exercise) => (
+                <div className="mt-10 space-y-8">
 
-                    <div
-                        key={exercise._id}
-                        className="rounded-xl bg-slate-900 p-6"
-                    >
+                    {workout.exercises.map((exercise) => (
 
-                        <h2 className="text-2xl font-bold text-white">
+                        <div
+                            key={exercise._id}
+                            className="rounded-xl bg-slate-900 p-6"
+                        >
 
-                            {exercise.exerciseName}
+                            <h2 className="text-2xl font-bold text-white">
 
-                        </h2>
+                                {exercise.exerciseName}
 
-                        <div className="mt-6 space-y-4">
+                            </h2>
 
-                            {exercise.sets.map((set, index) => (
+                            <div className="mt-6 space-y-4">
 
-                                <div
-                                    key={set._id}
-                                    className="rounded-lg bg-slate-800 p-4"
-                                >
+                                {exercise.sets.map((set, index) => (
 
-                                    <h3 className="font-semibold text-white">
+                                    <div
+                                        key={set._id}
+                                        className="rounded-lg bg-slate-800 p-4"
+                                    >
 
-                                        Set {index + 1}
+                                        <h3 className="font-semibold text-white">
 
-                                    </h3>
+                                            Set {index + 1}
 
-                                    <div className="mt-3 grid grid-cols-2 gap-4">
+                                        </h3>
 
-                                        <div>
+                                        <div className="mt-3 grid grid-cols-2 gap-4">
 
-                                            <p className="text-slate-400">
+                                            <div>
 
-                                                Planned
+                                                <p className="text-slate-400">
 
-                                            </p>
+                                                    Planned
 
-                                            <p className="text-white">
+                                                </p>
 
-                                                {set.plannedWeight} kg × {set.plannedReps}
+                                                <p className="text-white">
 
-                                            </p>
+                                                    {set.plannedWeight} kg × {set.plannedReps}
+
+                                                </p>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p className="text-slate-400">
+
+                                                    Actual
+
+                                                </p>
+
+                                                <p className="text-white">
+
+                                                    {set.actualWeight} kg × {set.actualReps}
+
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
-                                        <div>
+                                        <p className="mt-4 text-green-400">
 
-                                            <p className="text-slate-400">
+                                            {set.completed ? "Completed" : "Not Completed"}
 
-                                                Actual
-
-                                            </p>
-
-                                            <p className="text-white">
-
-                                                {set.actualWeight} kg × {set.actualReps}
-
-                                            </p>
-
-                                        </div>
+                                        </p>
 
                                     </div>
 
-                                    <p className="mt-4 text-green-400">
+                                ))}
 
-                                        {set.completed ? "Completed" : "Not Completed"}
-
-                                    </p>
-
-                                </div>
-
-                            ))}
+                            </div>
 
                         </div>
 
-                    </div>
+                    ))}
 
-                ))}
+                </div>
 
             </div>
-
-        </div>
+        </>
 
     );
 
