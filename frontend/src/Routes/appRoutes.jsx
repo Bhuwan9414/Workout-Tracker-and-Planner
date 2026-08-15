@@ -9,6 +9,7 @@ import CreateRoutine from "../pages/createRoutine";
 import ActiveWorkout from "../pages/ActiveWorkout";
 import Workouts from "../pages/Workouts";
 import WorkoutDetails from "../pages/WorkoutDetails";
+import RoutineDetails from "../pages/RoutineDetails";
 
 
 const AppRoutes = () => {
@@ -80,6 +81,15 @@ const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+
+        <Route
+    path="/routine/:id"
+    element={
+        <ProtectedRoute>
+            <RoutineDetails />
+        </ProtectedRoute>
+    }
+/>
 
 
       </Routes>

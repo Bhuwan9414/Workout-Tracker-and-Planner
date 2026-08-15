@@ -2,7 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import { getAllRoutines } from "../services/routineService";
-import { fetchWorkouts } from "../services/workoutService";
+import {
+    fetchWorkouts,
+    fetchActiveWorkout
+} from "../services/workoutService";
 import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
@@ -13,6 +16,7 @@ const Dashboard = () => {
 
     const [routines, setRoutines] = useState([]);
     const [workouts, setWorkouts] = useState([]);
+    const [activeWorkout, setActiveWorkout] = useState(null);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -30,11 +34,17 @@ const Dashboard = () => {
             setLoading(true);
             setError("");
 
+            // Fetch routines
             const routineResponse =
                 await getAllRoutines();
 
+            // Fetch workout history
             const workoutResponse =
                 await fetchWorkouts();
+
+            // Fetch currently active workout
+            const activeWorkoutResponse =
+                await fetchActiveWorkout();
 
             setRoutines(
                 routineResponse.data.routines || []
@@ -42,6 +52,10 @@ const Dashboard = () => {
 
             setWorkouts(
                 workoutResponse.data.workouts || []
+            );
+
+            setActiveWorkout(
+                activeWorkoutResponse.data.activeWorkout || null
             );
 
         }
@@ -65,15 +79,20 @@ const Dashboard = () => {
 
     };
 
+
+    /*
+     * Completed Workouts
+     */
+
     const completedWorkouts =
         workouts.filter(
             workout => workout.status === "completed"
         );
 
-    const activeWorkout =
-        workouts.find(
-            workout => workout.status === "active"
-        );
+
+    /*
+     * Recent Workouts
+     */
 
     const recentWorkouts =
         [...completedWorkouts]
@@ -83,6 +102,11 @@ const Dashboard = () => {
                     new Date(a.completedAt)
             )
             .slice(0, 3);
+
+
+    /*
+     * Loading State
+     */
 
     if (loading) {
 
@@ -113,6 +137,11 @@ const Dashboard = () => {
         );
 
     }
+
+
+    /*
+     * Error State
+     */
 
     if (error) {
 
@@ -151,6 +180,7 @@ const Dashboard = () => {
 
     }
 
+
     return (
 
         <>
@@ -178,6 +208,8 @@ const Dashboard = () => {
 
                 <div className="mt-10 grid gap-5 md:grid-cols-3">
 
+                    {/* Total Routines */}
+
                     <div className="rounded-xl bg-slate-900 p-5">
 
                         <p className="text-slate-400">
@@ -190,6 +222,8 @@ const Dashboard = () => {
 
                     </div>
 
+
+                    {/* Completed Workouts */}
 
                     <div className="rounded-xl bg-slate-900 p-5">
 
@@ -204,17 +238,68 @@ const Dashboard = () => {
                     </div>
 
 
+                    {/* Active Workout */}
+
                     <div className="rounded-xl bg-slate-900 p-5">
 
                         <p className="text-slate-400">
                             Active Workout
                         </p>
 
-                        <h2 className="mt-2 text-3xl font-bold">
 
-                            {activeWorkout ? "Yes" : "No"}
+                        {activeWorkout ? (
 
-                        </h2>
+                            <>
+
+                                <h2 className="mt-2 text-xl font-bold text-white">
+
+                                    {activeWorkout.routineTitle}
+
+                                </h2>
+
+                                <p className="mt-1 text-sm text-yellow-400">
+
+                                    Workout in progress
+
+                                </p>
+
+                                <button
+                                    onClick={() =>
+                                        navigate(
+                                            `/active-workout/${activeWorkout._id}`,
+                                            {
+                                                state: {
+                                                    workout: activeWorkout
+                                                }
+                                            }
+                                        )
+                                    }
+                                    className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
+                                >
+                                    Resume Workout
+                                </button>
+
+                            </>
+
+                        ) : (
+
+                            <>
+
+                                <h2 className="mt-2 text-3xl font-bold text-white">
+
+                                    None
+
+                                </h2>
+
+                                <p className="mt-1 text-sm text-slate-500">
+
+                                    No active workout
+
+                                </p>
+
+                            </>
+
+                        )}
 
                     </div>
 
@@ -224,6 +309,8 @@ const Dashboard = () => {
                 {/* Quick Actions */}
 
                 <div className="mt-10 grid gap-5 md:grid-cols-3">
+
+                    {/* Create Routine */}
 
                     <button
                         onClick={() => navigate("/create-routine")}
@@ -241,6 +328,8 @@ const Dashboard = () => {
                     </button>
 
 
+                    {/* My Routines */}
+
                     <button
                         onClick={() => navigate("/routines")}
                         className="rounded-xl bg-slate-900 p-6 text-left transition hover:bg-slate-800"
@@ -256,6 +345,8 @@ const Dashboard = () => {
 
                     </button>
 
+
+                    {/* Workout History */}
 
                     <button
                         onClick={() => navigate("/workouts")}
@@ -335,6 +426,8 @@ const Dashboard = () => {
 
                                     <div className="mt-5 grid grid-cols-2 gap-6 md:grid-cols-4">
 
+                                        {/* Duration */}
+
                                         <div>
 
                                             <p className="text-sm text-slate-400">
@@ -342,11 +435,13 @@ const Dashboard = () => {
                                             </p>
 
                                             <p className="font-medium">
-                                                {(workout.duration/60).toFixed(2)} min
+                                                {(workout.duration / 60).toFixed(2)} min
                                             </p>
 
                                         </div>
 
+
+                                        {/* Volume */}
 
                                         <div>
 
@@ -361,6 +456,8 @@ const Dashboard = () => {
                                         </div>
 
 
+                                        {/* Exercises */}
+
                                         <div>
 
                                             <p className="text-sm text-slate-400">
@@ -373,6 +470,8 @@ const Dashboard = () => {
 
                                         </div>
 
+
+                                        {/* Sets */}
 
                                         <div>
 
@@ -388,6 +487,8 @@ const Dashboard = () => {
 
                                     </div>
 
+
+                                    {/* View Details */}
 
                                     <button
                                         onClick={() =>

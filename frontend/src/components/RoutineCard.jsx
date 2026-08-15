@@ -102,6 +102,13 @@ const RoutineCard = ({ routine, onDelete, onEdit }) => {
                 </button>
 
                 <button
+                    onClick={() => navigate(`/routine/${routine._id}`)}
+                    className="rounded-lg bg-blue-600 px-5 py-3 text-white transition hover:bg-blue-700"
+                >
+                    Details
+                </button>
+
+                <button
                     onClick={handleDelete}
                     className="rounded-lg bg-red-600 px-4 py-2 text-white"
                 >

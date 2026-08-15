@@ -43,3 +43,7 @@ export const fetchSingleWorkout = async (workoutId) => {
     );
 
 };
+
+export const fetchActiveWorkout = async () => {
+    return await api.get("/workout/activeWorkouts");
+};
