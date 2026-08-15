@@ -1,5 +1,5 @@
 // importing the workout services
-const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout} = require("../services/workoutService");
+const { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout, fetchActiveService} = require("../services/workoutService");
 
 
 const startWorkoutController = async function (req, res) {
@@ -152,5 +152,35 @@ const fetchSingleWorkoutController = async function(req, res){
 
 }
 
+const fetchActiveController = async function(req, res){
 
-module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController, fetchSingleWorkoutController}
+    try{
+
+        const userId = req.user.id;
+        
+        const activeWorkout = await fetchActiveService(userId);
+        
+
+        res.status(201).json({
+
+            message : "Active workouts fetched",
+             activeWorkout
+        })
+
+        // console.log(activeWorkout);
+        
+
+
+    }
+    catch(error){
+
+        res.status(404).json({
+            message : error.message
+        })
+
+    }
+
+}
+
+
+module.exports = { startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController, fetchSingleWorkoutController, fetchActiveController}

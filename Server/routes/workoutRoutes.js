@@ -1,5 +1,5 @@
 //  importing the workout controllers from the controller file
-const {startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController, fetchSingleWorkoutController} = require("../controllers/workoutController");
+const {startWorkoutController, updateWorkoutController, completeWorkoutController, fetchWorkoutController, fetchSingleWorkoutController, fetchActiveController} = require("../controllers/workoutController");
 
 // importing the auth middleware from middleware file
 const authMiddleware = require("../middlewares/authMiddleware")
@@ -13,14 +13,15 @@ const router = express.Router();
 // using the post methdod for startworkout api
 router.post("/startWorkout",authMiddleware, startWorkoutController);
 
-router.patch("/:workoutId", authMiddleware, updateWorkoutController);
+router.get("/fetchWorkouts", authMiddleware, fetchWorkoutController);
+
+router.get("/activeWorkouts", authMiddleware, fetchActiveController);
 
 router.patch("/:workoutId/complete", authMiddleware, completeWorkoutController);
 
-router.get("/fetchWorkouts", authMiddleware, fetchWorkoutController);
+router.patch("/:workoutId", authMiddleware, updateWorkoutController);
 
 router.get("/:id", authMiddleware, fetchSingleWorkoutController);
-
 
 // exporting the router module
 module.exports = router;

@@ -9,6 +9,16 @@ const startWorkoutService = async (routineId, userId) => {
     const routine = await routineModel.findById(routineId)
         .populate("exercises.exerciseId", "name");
 
+
+    const activeWorkout = await workoutModel.findOne({
+        userId,
+        status: "active"
+    })
+
+    if(activeWorkout){
+        throw new Error("You already have an active workout")
+    }
+
     if (!routine) {
         throw new Error("Routine not found");
     }
@@ -17,6 +27,8 @@ const startWorkoutService = async (routineId, userId) => {
     if (routine.userId.toString() !== userId) {
         throw new Error("Unauthorized");
     }
+
+
 
     // Calculate summary fields
     const totalExercises = routine.exercises.length;
@@ -205,20 +217,39 @@ const fetchWorkoutService = async function (userId) {
 
 }
 
-const fetchSingleWorkout = async function(userId, workoutId){
+const fetchSingleWorkout = async function (userId, workoutId) {
 
-    const workout = await workoutModel.findOne({userId, _id: workoutId,})
+    const workout = await workoutModel.findOne({ userId, _id: workoutId, })
 
-    console.log(workout);
-    
+    // console.log(workout);
 
-    if(!workout){
-            throw new Error("Workout not found");
+
+    if (!workout) {
+        throw new Error("Workout not found");
     }
 
     return workout;
 
 }
 
+const fetchActiveService = async function (userId) {
 
-module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout}
+    const activeWorkout = await workoutModel.findOne({
+        userId,
+        status: "active"
+    })
+
+    if (!activeWorkout) {
+        // throw new Error("No active workouts found");
+        return null; ``
+    }
+
+    // console.log(activeWorkout);
+
+
+    return activeWorkout;
+
+}
+
+
+module.exports = { startWorkoutService, updateWorkoutService, completeWorkout, fetchWorkoutService, fetchSingleWorkout, fetchActiveService }
