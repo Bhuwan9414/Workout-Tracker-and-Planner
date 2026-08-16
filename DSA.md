@@ -1,14 +1,16 @@
-Largest Element
-Second Largest Element
-Check if Array is Sorted
-Remove Duplicates from Sorted Array
-Left Rotate an Array by One Place
-Linear search
-Rotate array by k places
-Move Zeroes
-Maximum Consecutive Ones
+## Arrays
 
-hashing
-Contains Duplicate
-Two Sum
-Valid Anagram
+- Largest Element
+- Second Largest Element
+- Check if Array is Sorted
+- Remove Duplicates from Sorted Array
+- Left Rotate an Array by One Place
+- Linear search
+- Rotate array by k places
+- Move Zeroes
+- Maximum Consecutive Ones
+
+## Hashing + Array
+- Contains Duplicate
+- Two Sum
+- Valid Anagram
