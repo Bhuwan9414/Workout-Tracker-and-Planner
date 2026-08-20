@@ -4,7 +4,7 @@ const exerModel = require("../models/exercisesModel")
 const exercises = require("../models/Exercises");
 
 // office url
-mongoose.connect("mongodb+srv://sutharbhuwan2_db_user:XIAdcr6EoxhglOfs@cluster1.z0szuix.mongodb.net/fitDB")
+// mongoose.connect("mongodb+srv://sutharbhuwan2_db_user:XIAdcr6EoxhglOfs@cluster1.z0szuix.mongodb.net/fitDB")
 
 // home url
 
