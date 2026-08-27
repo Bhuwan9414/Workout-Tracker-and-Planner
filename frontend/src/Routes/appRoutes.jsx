@@ -12,6 +12,8 @@ import WorkoutDetails from "../pages/WorkoutDetails";
 import RoutineDetails from "../pages/RoutineDetails";
 
 
+
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
