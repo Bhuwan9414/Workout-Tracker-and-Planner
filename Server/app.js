@@ -18,7 +18,12 @@ const cors = require("cors");
 //  creating the express app after this we can use all express methods
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+
+app.use(cors({
+    origin: process.env.VITE_API_URL,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+}));
 
 // parses the incoming json in req.body to js object
 // app.use is used to run middlewares between request and response
