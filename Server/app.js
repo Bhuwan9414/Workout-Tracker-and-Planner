@@ -15,6 +15,8 @@ const workoutRoutes = require("./routes/workoutRoutes");
 
 const cors = require("cors");
 
+const errorMiddleware = require("./middlewares/errorMiddleware");
+
 //  creating the express app after this we can use all express methods
 const app = express();
 
@@ -43,5 +45,7 @@ app.use("/api/exercise", exerciseRoutes);
 // using the workout routes
 
 app.use("/api/workout", workoutRoutes);
+
+app.use(errorMiddleware)
 
 module.exports = app;
