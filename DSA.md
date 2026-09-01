@@ -1,19 +1,22 @@
-## Arrays
+# Backend Progress
 
-- Largest Element
-- Second Largest Element
-- Check if Array is Sorted
-- Remove Duplicates from Sorted Array
-- Left Rotate an Array by One Place
-- Linear search
-- Rotate array by k places
-- Move Zeroes
-- Maximum Consecutive Ones
+## current topic
+- Status codes understanding
+- 
 
-## Hashing + Array
-- Contains Duplicate
-- Two Sum
-- Valid Anagram
+## status codes need to know
 
-
-- practice commit for 19th august i did the reverse string of words problem.
+- 200	- OK	Success
+- 201	- Created	Resource created
+- 204	- No Content	Success, nothing to return
+- 400	- Bad Request	Bad input/request
+- 401	- Unauthorized	Not authenticated
+- 403	- Forbidden	Not authorized
+- 404	- Not Found	Doesn't exist
+- 409	- Conflict	State conflict
+- 422	- Unprocessable Content	Validation failed
+- 429	- Too Many Requests	Rate limited
+- 500	- Internal Server Error	My bug/server failure
+- 502	- Bad Gateway	Upstream gave bad response
+- 503	- Service Unavailable	Temporarily unavailable
+- 504	- Gateway Timeout	Upstream took too long
