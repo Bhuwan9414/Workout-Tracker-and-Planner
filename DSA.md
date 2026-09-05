@@ -1,7 +1,6 @@
 # Backend Progress
 
-## current topic
-- Status codes understanding
+## current topic (5-sept-2026)
 - 
 
 ## status codes need to know
