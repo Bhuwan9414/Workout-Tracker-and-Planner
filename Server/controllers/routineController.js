@@ -3,7 +3,7 @@
 const routineService = require("../services/routineServices")
 
 // wrtiting the controller function for creating a routine which will handle the incoming and outgoing request
-const createRoutine = async function (req, res) {
+const createRoutine = async function (req, res, next) {
 
 
     try {
@@ -37,14 +37,16 @@ const createRoutine = async function (req, res) {
     catch (error) {
 
         // if any error occurs then return error message
-        res.status(400).json({
-            message: error.message
-        })
+        // res.status(400).json({
+        //     message: error.message
+        // })
+
+        next(error);
     }
 
 }
 
-const getAllRoutines = async function (req, res) {
+const getAllRoutines = async function (req, res, next) {
 
     try {
 
@@ -62,14 +64,12 @@ const getAllRoutines = async function (req, res) {
 
     }
     catch (error) {
-        res.status(201).json({
-            message: error.message
-        })
+        next(error)
     }
 
 }
 
-const fetchsingleRoutine = async function (req, res) {
+const fetchsingleRoutine = async function (req, res, next) {
 
     try {
 
@@ -88,9 +88,7 @@ const fetchsingleRoutine = async function (req, res) {
 
     catch (error) {
 
-        res.status(202).json({
-            message: error.message
-        })
+        next(error)
 
     }
 
@@ -99,7 +97,7 @@ const fetchsingleRoutine = async function (req, res) {
 
 
 
-const deleteRoutineController = async function (req, res) {
+const deleteRoutineController = async function (req, res, next) {
 
     try {
 
@@ -115,14 +113,12 @@ const deleteRoutineController = async function (req, res) {
 
     }
     catch (error) {
-        res.status(202).json({
-            message: error.message
-        })
+        next(error)
     }
 
 }
 
-const updateRoutineController = async function (req, res) {
+const updateRoutineController = async function (req, res, next) {
 
     try {
 
@@ -151,9 +147,7 @@ const updateRoutineController = async function (req, res) {
 
     catch(error){
 
-        res.status(202).json({
-            message : error.message
-        })
+       next(error)
 
     }
 }

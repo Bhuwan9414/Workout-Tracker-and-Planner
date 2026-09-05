@@ -1,9 +1,14 @@
-const routine = require("../models/RoutineModel")
+const routine = require("../models/RoutineModel");
+const AppError = require("../utils/AppError");
 // const exercises = require("../models/exercisesModel")
 
 const createRoutine = async function (data) {
 
     let exercisesList = data.exercises
+
+    if(!exercisesList){
+        throw new AppError("Exercises list not found(createRoutineService)", 404)
+    }
 
     const exerciseIds = exercisesList.map(
         ex => ex.exerciseId
@@ -68,7 +73,7 @@ const deleteRoutine = async function (id, userId) {
     const deleted = await routine.findOneAndDelete({ _id: id, userId })
 
     if (!deleted) {
-        throw new Error("Routine not found")
+        throw new AppError("Routine not found", 404)
     }
 
     return deleted;
@@ -85,7 +90,7 @@ const updateRoutine = async function (id, userId, data) {
 
     if (!updated) {
 
-        throw new Error("Routine not found")
+        throw new AppError("Routine not found", 404)
 
     }
 

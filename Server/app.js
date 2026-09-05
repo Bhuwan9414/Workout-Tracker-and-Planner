@@ -46,6 +46,6 @@ app.use("/api/exercise", exerciseRoutes);
 
 app.use("/api/workout", workoutRoutes);
 
-// app.use(errorMiddleware)
+app.use(errorMiddleware)
 
 module.exports = app;

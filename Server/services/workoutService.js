@@ -1,5 +1,6 @@
 const workoutModel = require("../models/workoutModel");
 const routineModel = require("../models/RoutineModel");
+const AppError = require("../utils/AppError");
 
 //  start workout service
 
@@ -16,16 +17,16 @@ const startWorkoutService = async (routineId, userId) => {
     })
 
     if(activeWorkout){
-        throw new Error("You already have an active workout")
+        throw new AppError("You already have an active workout", 409)
     }
 
     if (!routine) {
-        throw new Error("Routine not found");
+        throw new AppError("Routine not found", 404);
     }
 
     // Check ownership
     if (routine.userId.toString() !== userId) {
-        throw new Error("Unauthorized");
+        throw new AppError("Unauthorized", 401);
     }
 
 
@@ -114,17 +115,17 @@ const updateWorkoutService = async (
     const workout = await workoutModel.findById(workoutId);
 
     if (!workout) {
-        throw new Error("Workout not found");
+        throw new AppError("Workout not found", 404);
     }
 
     // Check ownership
     if (workout.userId.toString() !== userId) {
-        throw new Error("Unauthorized");
+        throw new AppError("Unauthorized", 401);
     }
 
     // Workout should be active
     if (workout.status !== "active") {
-        throw new Error("Workout is already completed or discarded");
+        throw new AppError("Workout is already completed or discarded", 409);
     }
 
     let setFound = false;
@@ -148,7 +149,7 @@ const updateWorkoutService = async (
     });
 
     if (!setFound) {
-        throw new Error("Set not found");
+        throw new AppError("Set not found", 404);
     }
 
     await workout.save();
@@ -164,17 +165,17 @@ const completeWorkout = async function (workoutId, userId,) {
     const workout = await workoutModel.findById(workoutId)
 
     if (!workout) {
-        throw new Error("workout not found");
+        throw new AppError("workout not found", 404);
     }
 
     // Check ownership
     if (workout.userId.toString() !== userId) {
-        throw new Error("Unauthorized");
+        throw new AppError("Unauthorized", 401);
     }
 
     // Workout should be active
     if (workout.status !== "active") {
-        throw new Error("Workout is already completed or discarded");
+        throw new AppError("Workout is already completed or discarded", 409);
     }
 
 
@@ -225,7 +226,7 @@ const fetchSingleWorkout = async function (userId, workoutId) {
 
 
     if (!workout) {
-        throw new Error("Workout not found");
+        throw new AppError("Workout not found", 404);
     }
 
     return workout;
@@ -240,8 +241,8 @@ const fetchActiveService = async function (userId) {
     })
 
     if (!activeWorkout) {
-        // throw new Error("No active workouts found");
-        return null; ``
+        // throw new AppError("No active workouts found");
+        return null; 
     }
 
     // console.log(activeWorkout);

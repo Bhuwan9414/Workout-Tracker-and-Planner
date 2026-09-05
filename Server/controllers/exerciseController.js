@@ -1,6 +1,6 @@
 const exerciseService = require("../services/exerciseServices")
 
-const exerciseController = async function(req, res) {
+const exerciseController = async function(req, res, next) {
     
     try {
         const exercises = await exerciseService();
@@ -15,9 +15,11 @@ const exerciseController = async function(req, res) {
     }
 
     catch(error){
-        res.status(201).json({
-            message : error.message
-        })
+        // res.status(201).json({
+        //     message : error.message
+        // })
+
+        next(error);
     }
 }
 

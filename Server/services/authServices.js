@@ -2,6 +2,7 @@ const { email } = require("zod");
 const User = require("../models/User")
 const generateToken = require("../utils/generateToken")
 const bcrypt = require("bcrypt")
+const AppError = require("../utils/AppError")
 
 //  register a new user
 const registerUser = async function (data) {
@@ -11,7 +12,7 @@ const registerUser = async function (data) {
     })
 
     if (existingUser) {
-        throw new Error("User already exists");
+        throw new AppError("User already exists", 409);
     }
 
     const { email, password, name, weight, height, goal } = data;
@@ -56,7 +57,7 @@ const loginUser = async function (email, password) {
 
 
     if (!user) {
-        throw new Error("User does not exist");
+        throw new AppError("User does not exist", 404);
     }
 
     // comparing bcrypt hashed passowrd
@@ -67,7 +68,7 @@ const loginUser = async function (email, password) {
 
 
     if(!isMatch){
-        throw new Error("incorrect password");
+        throw new AppError("incorrect password", 400);
     }
 
     
