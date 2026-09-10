@@ -100,3 +100,4 @@ const updateRoutine = async function (id, userId, data) {
 
 
 module.exports = { createRoutine, fetchRoutines, fetchSingle, deleteRoutine, updateRoutine };
+
