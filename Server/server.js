@@ -13,8 +13,12 @@ const connectDB = require("./config/db")
 connectDB();
 
 // exposing the app on localhost:3000
-app.listen(process.env.PORT, function(){
-    console.log("server is listening on port  " + process.env.PORT);
+// app.listen(process.env.PORT, function(){
+//     console.log("server is listening on port  " + process.env.PORT);
+// })
+
+app.listen(process.env.PORT, "0.0.0.0", function(){
+    console.log("server is listening on port " + process.env.PORT);
 })
 
 // branch check
