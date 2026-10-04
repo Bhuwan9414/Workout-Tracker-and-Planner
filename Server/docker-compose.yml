@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: .
+    container_name: workout-backend-container
+    ports:
+      - "4000:3000"
+    env_file:
+      - .env.docker
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:7
+    container_name: workout-mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
