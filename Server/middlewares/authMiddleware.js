@@ -27,7 +27,7 @@ const authMiddleware = function (req, res, next) {
     }
     catch (error) {
         return res.status(401).json({
-            message: "invlid token"
+            message: "invlid or expired token"
         })
     }
 

@@ -5,7 +5,9 @@ const generateToken = function(data){
 
     const token = jwt.sign({
         data
-    }, process.env.JWT_SECRET)
+    }, process.env.JWT_SECRET,{
+        expiresIn : "1h"
+    })
 
     return token;
     
